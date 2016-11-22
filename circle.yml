@@ -17,3 +17,17 @@ dependencies:
         - docker info
         - docker build --rm=false -t asia.gcr.io/${GCLOUD_PROJECT}/gophish:$CIRCLE_SHA1 .
         - docker tag asia.gcr.io/${GCLOUD_PROJECT}/gophish:$CIRCLE_SHA1 asia.gcr.io/${GCLOUD_PROJECT}/gophish:latest
+
+test:
+    post:
+        - docker run -d -p 3000:3000 -p 8000:80 --name gophish 
+
+deployment:
+    release:
+        tag: /v[0-9]+(\.[0-9]+)*/
+        commands: #とりあえずprodと同じcommandsに設定
+            - sudo /opt/google-cloud-sdk/bin/gcloud docker push asia.gcr.io/${GCLOUD_PROJECT}/gophish:latest
+    prod:
+        branch: master
+        commands:
+            - sudo /opt/google-cloud-sdk/bin/gcloud docker push asia.gcr.io/${GCLOUD_PROJECT}/gophish:latest
