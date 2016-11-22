@@ -20,7 +20,8 @@ dependencies:
 
 test:
     post:
-        - docker run -d -p 3000:3000 -p 8000:80 --name gophish 
+        - docker run -d -p 3000:3000 --name gophish asia.gcr.io/gophish-150317/gophish:latest; sleep 10
+        - curl http://localhost:3000 -v
 
 deployment:
     release:
