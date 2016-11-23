@@ -16,9 +16,15 @@ dependencies:
         - sudo /opt/google-cloud-sdk/bin/gcloud config set project $PROJECT_NAME
         - sudo /opt/google-cloud-sdk/bin/gcloud --quiet config set container/cluster $CLUSTER_NAME
         - docker build -t asia.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:$CIRCLE_SHA1 .
-        - docker tag us.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:$CIRCLE_SHA1 asia.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:latest
+        - docker tag asia.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:$CIRCLE_SHA1 asia.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:latest
 
 test:
     post: 
         - docker run -d -p 3000:3000 --name gophish asia.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:latesti; sleep 10
         - curl --retry 10 --retry-delay 5 -v http://localhost:3000
+
+deploy:
+    prod:
+        branch: master
+        commands:
+            - ./deploy.sh
