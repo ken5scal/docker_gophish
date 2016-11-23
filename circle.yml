@@ -28,3 +28,7 @@ deployment:
         branch: master
         commands:
             - ./deploy.sh
+    release:
+        tag: /v[0-9]+(\.[0-9]+)*/
+        commands:
+            - ./deploy.sh  #とりあえず
