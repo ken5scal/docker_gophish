@@ -1,6 +1,7 @@
 machine:
     environment:
         GCLOUD_PROJECT: gophish-150317
+        GCLOUD_CLUSTER_NAME: gophish-cluster
         GCLOUD_COMPUTE_ZONE: asia-east1-a
 
     services:
@@ -14,10 +15,10 @@ dependencies:
         - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
         - sudo /opt/google-cloud-sdk/bin/gcloud config set project $GCLOUD_PROJECT
         - sudo /opt/google-cloud-sdk/bin/gcloud config set compute/zone ${GCLOUD_COMPUTE_ZONE}
-        - docker info
+        - sudo /opt/google-cloud-sdk/bin/gcloud --quiet container clusters get-credential $iGCLOUD_CLUSTER_NAME
         - docker build --rm=false -t asia.gcr.io/${GCLOUD_PROJECT}/gophish:$CIRCLE_SHA1 .
         - docker tag asia.gcr.io/${GCLOUD_PROJECT}/gophish:$CIRCLE_SHA1 asia.gcr.io/${GCLOUD_PROJECT}/gophish:latest
-
+        - docker info
 test:
     post:
         - docker run -d -p 3000:3000 --name gophish asia.gcr.io/gophish-150317/gophish:latest; sleep 10
