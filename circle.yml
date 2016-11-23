@@ -20,7 +20,7 @@ dependencies:
 
 test:
     post: 
-        - docker run -d -p 3000:3000 --name gophish asia.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:latesti; sleep 10
+        - docker run -d -p 3000:3000 --name gophish asia.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:latest; sleep 10
         - curl --retry 10 --retry-delay 5 -v http://localhost:3000
 
 deployment:
