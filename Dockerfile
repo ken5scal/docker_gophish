@@ -17,4 +17,5 @@ COPY config.json /usr/local/gophish/config.json
 RUN chmod +x /usr/local/gophish/gophish
 
 WORKDIR /usr/local/gophish
+EXPOSE 3333, 80
 ENTRYPOINT ["./gophish"]
