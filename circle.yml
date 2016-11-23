@@ -24,12 +24,12 @@ test:
         - docker run -d -p 3000:3000 --name gophish asia.gcr.io/gophish-150317/gophish:latest; sleep 10
         - curl http://localhost:3000 -v
 
-deployment:
-    release:
-        tag: /v[0-9]+(\.[0-9]+)*/
-        commands: #とりあえずprodと同じcommandsに設定
-            - sudo /opt/google-cloud-sdk/bin/gcloud docker push asia.gcr.io/${GCLOUD_PROJECT}/gophish:latest
-    prod:
-        branch: master
-        commands:
-            - sudo /opt/google-cloud-sdk/bin/gcloud docker push asia.gcr.io/${GCLOUD_PROJECT}/gophish:latest
+#deployment:
+#    release:
+#        tag: /v[0-9]+(\.[0-9]+)*/
+#        commands: #とりあえずprodと同じcommandsに設定
+#            - sudo /opt/google-cloud-sdk/bin/gcloud docker push asia.gcr.io/${GCLOUD_PROJECT}/gophish:latest
+#    prod:
+#        branch: master
+#        commands:
+#            - sudo /opt/google-cloud-sdk/bin/gcloud docker push asia.gcr.io/${GCLOUD_PROJECT}/gophish:latest
