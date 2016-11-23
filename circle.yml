@@ -3,7 +3,6 @@ machine:
     GCLOUD_PROJECT: gophish-150317
     GCLOUD_CLUSTER_NAME: gophish-cluster
     GCLOUD_COMPUTE_ZONE: asia-east1-a
-
   services:
     - docker
 
