@@ -1,3 +1,19 @@
 machine:
+    environment:
+        PROJECT_NAME: gophish-150317
+        CONTAINER_NAME: gophish
+        CLUSTER_NAME: gophish-cluster
+        CLOUDSDK_COMPUTE_ZONE: asia-east1-a
     services:
         - docker
+
+dependencies:
+    pre:
+        - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
+        - sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update kubectl
+        - echo $ACCT_AUTH | base64 --decode -i > ${HOME}/account-auth.json
+        - sudo /opt/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file ${HOME}/account-auth.json
+        - sudo /opt/google-cloud-sdk/bin/gcloud config set project $PROJECT_NAME
+        - sudo /opt/google-cloud-sdk/bin/gcloud --quiet config set container/cluster $CLUSTER_NAME
+        - docker build -t asia.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:$CIRCLE_SHA1 .
+        - docker tag us.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:$CIRCLE_SHA1 asia.gcr.io/${PROJECT_NAME}/${CONTAINER_NAME}:latest
