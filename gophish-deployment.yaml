@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: gophish
+  name: gophish
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: gophish
+    spec:
+      containers:
+      - image: asia.gcr.io/gophish-150317/gophish:latest
+        name: gophish
+        ports:
+        - containerPort: 3333
