@@ -12,7 +12,7 @@ spec:
                 name: gophish
         spec:
             containers:
-                name: gophish
-                image: asia.gcr.io/${PROJECT_ID}/${CONTAINER_NAME}:latest
-                ports:
-                    - containerPort: 3333
+            - image: asia.gcr.io/gophish-150317/gophish:latest
+            name: gophish
+            ports:
+                - containerPort: 3333
