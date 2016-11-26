@@ -11,4 +11,5 @@ spec:
     protocol: TCP
   selector:
     name: gophish
-  type: LoadBalancer
+  type: NodePort
+  #type: LoadBalancer
