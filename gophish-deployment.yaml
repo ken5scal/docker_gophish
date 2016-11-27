@@ -1,9 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  labels:
-    name: gophish
-  name: gophish
+  name: gophish-deployment
 spec:
   replicas: 1
   template:
