@@ -7,9 +7,10 @@ metadata:
 spec:
   ports:
   - port: 3333
-    targetPort: 3333
+    #targetPort: 3333
     protocol: TCP
+    nodePort: 30333
   selector:
     name: gophish
-  #type: NodePort
-  type: LoadBalancer
+  type: NodePort
+  #type: LoadBalancer
